@@ -1,0 +1,10 @@
+﻿using System;
+
+namespace ClassLibrary1
+{
+    public class Class1
+    {
+        public static IntPtr winPtr = IntPtr.Zero;
+        public static IntPtr winPtr2 = IntPtr.Zero;
+    }
+}

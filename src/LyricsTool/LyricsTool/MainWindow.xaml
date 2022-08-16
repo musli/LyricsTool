@@ -1,0 +1,54 @@
+﻿<Window x:Class="LyricsTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LyricsTool"
+        xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+        mc:Ignorable="d"
+        Title="MainWindow" Width="500" Height="200" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="White" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="NormalButtonTemplate">
+                <Image  x:Name="bgImg" Focusable="False" Source="{svg:SvgImage Source=Icon/target.svg}" Stretch="Uniform"/>
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding IsMouseUp,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Value="True">
+                        <Setter TargetName="bgImg" Property="Opacity" Value="0"></Setter>
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <ControlTemplate x:Key="NoneButtonTemplate">
+                <Border Background="Blue"></Border>
+            </ControlTemplate>
+            <Style x:Key="NormalButton" TargetType="Button">
+                <Setter Property="Template" Value="{StaticResource ResourceKey=NormalButtonTemplate}"/>
+                <!--<Setter Property="ToolTip" Value="{Binding IsMouseUp}"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsMouseUp,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Value="True">
+                        <Setter Property="Template" Value="{StaticResource ResourceKey=NoneButtonTemplate}"/>
+                    </DataTrigger>
+                </Style.Triggers>-->
+            </Style>
+            <ImageBrush x:Key="target" Stretch="Uniform" ImageSource="{svg:SvgImage Source=Icon/target.png}" x:Shared="false"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="Red">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnTarget" Style="{StaticResource NormalButton}"  PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Button_PreviewMouseLeftButtonUp" PreviewMouseMove="Button_PreviewMouseMove" >
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="退出" Click="ExitMenuItem_Click"></MenuItem>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Image x:Name="imgPic" Grid.Column="1" Stretch="Uniform" Grid.RowSpan="2"></Image>
+        <TextBox Grid.Row="1" x:Name="txtPtr"></TextBox>
+    </Grid>
+</Window>
